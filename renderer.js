@@ -27,12 +27,6 @@ var getCurrentTime = edge.func({
   methodName: 'GetCurrentTime'
 })
 
-var geReturnMessage = edge.func({
-  assemblyFile: baseDll,
-  typeName: localTypeName,
-  methodName: 'ReturnMessage'
-})
-
 var useDynamicInput = edge.func({
   assemblyFile: baseDll,
   typeName: localTypeName,
@@ -45,25 +39,48 @@ var getPerson = edge.func({
   methodName: 'GetPersonInfo'
 })
 
+var GetInput = edge.func({
+  assemblyFile: baseDll,
+  typeName: externalTypeName,
+  methodName: 'GetInput'
+})
+
+// var helloWorld = edge.func(function () { /*
+//   public async Task<object> Invoke(int command)
+//   {
+//       await Task.Run(() => {
+
+//         return int command
+//       }
+
+//   }
+// */ })
+
 window.onload = function () {
-  // getAppDomainDirectory('', function (error, result) {
-  //   if (error) throw error
-  //   document.getElementById('GetAppDomainDirectory').innerHTML = result
+  // document.getElementById('type_name').addEventListener('change', function (e) {
+  //   // console.log(e.target.value)
+  //   useDynamicInput(e.target.value, function (error, result) {
+  //     if (error) throw error
+  //     document.getElementById('UseDynamicInput').innerHTML = result
+  //   })
   // })
+
+  getAppDomainDirectory('', function (error, result) {
+    if (error) throw error
+    document.getElementById('GetAppDomainDirectory').innerHTML = result
+  })
 
   getCurrentTime('', function (error, result) {
     if (error) throw error
     document.getElementById('GetCurrentTime').innerHTML = result
   })
 
-  geReturnMessage('', function (error, result) {
-    if (error) throw error
-    document.getElementById('getHelloWorld').innerHTML = result
-  })
-
-  useDynamicInput('Node.Js', function (error, result) {
-    if (error) throw error
-    document.getElementById('UseDynamicInput').innerHTML = result
+  document.getElementById('type_name').addEventListener('change', function (e) {
+    GetInput(e.target.value, function (error, result) {
+      // if (error) throw JSON.stringify(error);
+      console.log(result)
+      // document.getElementById('GetPersonInfo').innerHTML = result
+    })
   })
 
   getPerson('', function (error, result) {

@@ -21,6 +21,11 @@ namespace QuickStart.Core
             return length * width;
         }
 
+        public double GetAreaStatic()
+        {
+            return 2 * 1;
+        }
+
         public void Display()
         {
             Console.WriteLine("Length: {0}", length);
@@ -29,7 +34,16 @@ namespace QuickStart.Core
         }
     }
 
-
+    public class Class1
+    {
+        public static void SumFunc(double x, double y)
+        {
+            double Sum = x + y;
+            double Mult = x * y;
+            Console.WriteLine("Summ = {0} Multiply= {1}", Sum, Mult);
+            Console.ReadLine();
+        }
+    }
     public class LocalMethods
     {
         public async Task<object> GetAppDomainDirectory(dynamic input)
@@ -44,16 +58,16 @@ namespace QuickStart.Core
 
         public async Task<object> UseDynamicInput(dynamic input)
         {
-            return $".NET Core welcomes {input}";
+            return $".NET Core HERE welcomes {input}";
         }
 
         public async Task<object> ReturnMessage(dynamic input)
         {
             Rectangle r = new Rectangle();
-            r.Acceptdetails();
-            r.Display();
+            double b = r.GetAreaStatic();
 
-            return $".NET Standard welcomes HAPPY CODING BITCHES";
+
+            return b;
         }
     }
 
