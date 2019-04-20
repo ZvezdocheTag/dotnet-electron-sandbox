@@ -1,5 +1,5 @@
 const electron = require('electron')
-
+const { ipcMain } = require('electron')
 var version = process.argv[1].replace('--', '')
 
 // Module to control application life.
@@ -13,7 +13,12 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 700, height: 450, x: 300, y: 0 })
+  mainWindow = new BrowserWindow({ width: 700, height: 450, x: 300, y: 0, show: false })
+
+  // let win = new BrowserWindow({ show: false })
+  // win.once('ready-to-show', () => {
+  //   win.show()
+  // })
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html?version=${version}`)
@@ -27,6 +32,14 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+  })
+
+  ipcMain.on('asynchronous-message', (event, arg) => {
+    console.log(arg) // prints "ping"
+    if (arg === 'ping') {
+      mainWindow.show()
+    }
+    event.sender.send('asynchronous-reply', 'pong')
   })
 }
 
